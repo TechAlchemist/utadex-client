@@ -4,14 +4,22 @@ import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function navigation(props) {
+    const user = props.user;
     return (
     
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Navbar.Brand href="/">Utadex</Navbar.Brand>
+        <Navbar.Brand href="/">
+            Utadex ( { user ? <> {user.firstName} </> : <i> sign in </i> } )
+        </Navbar.Brand>
+
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
                 <Nav.Link href="/">Home</Nav.Link>
+                {
+                    user ? <Nav.Link onClick={props.handleLogout}> Logout </Nav.Link>
+                    : <Nav.Link href="/login">Login</Nav.Link>
+                }         
                 <Nav.Link href="/manage-employees">Employees</Nav.Link>
                 <NavDropdown title="Locations" id="collasible-nav-dropdown">
                     <NavDropdown.Item href="/manage-locations">Manage Locations</NavDropdown.Item>
